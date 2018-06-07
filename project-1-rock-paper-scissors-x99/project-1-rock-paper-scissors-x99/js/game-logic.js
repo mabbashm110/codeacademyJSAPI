@@ -17,17 +17,21 @@ let playerTwoMoveOneValue;
 let playerTwoMoveTwoValue;
 let playerTwoMoveThreeValue;
 
+let gameOptions = ["rock", "paper", "scissors"];
 
 const setPlayerMoves = (playerName, playerMove1, playerMove1Val, playerMove2, playerMove2Val, playerMove3, playerMove3Val) => {
     //Check values not undefined
-    if (playerName && playerMove1 && playerMove1Val && playerMove2 && playerMove2Val && playerMove3 && playerMove3Val){
-        console.log("Not null")
+    if ((playerName && playerMove1 && playerMove1Val && playerMove2 && playerMove2Val && playerMove3 && playerMove3Val) 
+    && (gameOptions.indexOf(playerMove1) > -1) 
+    && (gameOptions.indexOf(playerMove2) > -1) 
+    && (gameOptions.indexOf(playerMove3) > -1)){
+        //console.log("Not null")
         //Check values less than 1, greater than 99, totals greater than 99.
-        if((playerMove1Val && playerMove2Val && playerMove3Val)> 0 && 
-        (playerMove1Val || playerMove2Val || playerMove3Val) <= 100 &&
-        (playerMove1Val + playerMove2Val + playerMove3Val) <= 100)
+        if ((playerMove1Val && playerMove2Val && playerMove3Val) < 1 && 
+        (playerMove1Val + playerMove2Val + playerMove3Val) <= 99 &&
+        (playerMove1Val && playerMove2Val && playerMove3Val) <= 100)
         {
-            console.log(playerMove1Val + playerMove2Val + playerMove3Val);
+            //console.log(playerMove1Val + playerMove2Val + playerMove3Val);
             //Check player
             if (playerName === 'Player One'){
                 //Best practice create a player object, initiate players and assign
@@ -37,7 +41,7 @@ const setPlayerMoves = (playerName, playerMove1, playerMove1Val, playerMove2, pl
                 playerOneMoveTwoValue = playerMove2Val;
                 playerOneMoveThreeType = playerMove3;
                 playerOneMoveThreeValue = playerMove3Val;
-                console.log(`Player One ${playerOneMoveOneType}`);
+                //console.log(`Player One ${playerOneMoveOneType}`);
                 }
             else {
                 playerTwoMoveOneType = playerMove1;
@@ -46,11 +50,54 @@ const setPlayerMoves = (playerName, playerMove1, playerMove1Val, playerMove2, pl
                 playerTwoMoveTwoValue = playerMove2Val;
                 playerTwoMoveThreeType = playerMove3;
                 playerTwoMoveThreeValue = playerMove3Val;
-                console.log(`Player Two ${playerTwoMoveOneType}`);
+                //console.log(`Player Two ${playerTwoMoveOneType}`);
             }
         }
         else{
-            console.log("null")
+            //console.log("null")
         }
     }
 }
+
+const getRoundWinner = (moveNumber) =>{
+    switch (moveNumber){
+        case 1:
+
+    }
+}
+
+const getWinnerMove = (player1Move, player2Move) =>{
+    if (player1Move === "rock"){
+        switch (player2Move){
+            case "rock":
+                "Tie";
+                break;
+            case "paper":
+                "Player Two";
+                break;
+            case "scissors":
+                "Player One"
+                break;
+        }
+    }
+    else if (player1Move === "paper"){
+        switch (player2Move){
+            case "rock":
+                "Player One";
+                break;
+            case "paper":
+                "Tie";
+                break;
+            case "scissors":
+                "Player Two";
+                break;
+        }
+
+    }
+    else{
+        switch(player2Move){
+            
+        }
+    }
+}
+    
