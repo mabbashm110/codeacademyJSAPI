@@ -59,45 +59,138 @@ const setPlayerMoves = (playerName, playerMove1, playerMove1Val, playerMove2, pl
     }
 }
 
-const getRoundWinner = (moveNumber) =>{
-    switch (moveNumber){
-        case 1:
 
-    }
-}
-
+//Find the winning move - in association with getRoundWinner()
 const getWinnerMove = (player1Move, player2Move) =>{
+    //setPlayerMoves()
     if (player1Move === "rock"){
         switch (player2Move){
             case "rock":
-                "Tie";
+                return "Tie";
                 break;
             case "paper":
-                "Player Two";
+                return "Player Two";
                 break;
             case "scissors":
-                "Player One"
+                return "Player One"
                 break;
         }
     }
     else if (player1Move === "paper"){
         switch (player2Move){
             case "rock":
-                "Player One";
+                return "Player One";
                 break;
             case "paper":
-                "Tie";
+                return "Tie";
                 break;
             case "scissors":
-                "Player Two";
+                return "Player Two";
+                break;
+        }
+    }
+    else if (player1Move === "scissors"){
+        switch (player2Move){
+            case "rock":
+                return "Player Two";
+                break;
+            case "paper":
+                return "Player One";
+                break;
+            case "scissors":
+                return "Tie";
                 break;
         }
 
     }
     else{
-        switch(player2Move){
-            
-        }
+        // switch(player2Move){
+
+        // }
     }
 }
+
+//Ensures values are not null or undefined
+const ensureValues = () => {
+    if(playerOneMoveOneType && playerOneMoveOneValue && playerOneMoveThreeType && playerOneMoveThreeValue
+        && playerOneMoveTwoType && playerOneMoveTwoValue && playerTwoMoveOneType && playerTwoMoveOneValue
+        && playerTwoMoveThreeType && playerTwoMoveThreeValue && playerTwoMoveTwoType && playerTwoMoveTwoValue) {
+        
+            return true;
+        }
+    else{
+        return false;
+    }
+
+}
+
+//Get a Tie Breaker
+const getTieWinner = (playerMove1Val, playerMove2Val) =>{
+    if(playerMove1Val > playerMove2Val){
+        return "Player One";
+    }
+    else if (playerMove1Val < playerMove2Val) {
+        return "Player Two";
+    }
+    else{
+        return "Tie";
+    }
+}
+
+const getRoundWinner = (roundValue) =>{
+    let winner;
+
+    //Find non-null values
+    if (ensureValues){
+
+        //Verify winner
+        switch(roundValue){
+            case 1:
+                winner = getWinnerMove(playerOneMoveOneType, playerTwoMoveOneType);
+                //console.log(winner)
+                break;
+            case 2:
+                winner = getWinnerMove(playerOneMoveTwoType, playerTwoMoveTwoType);
+                //console.log(winner)
+                break;
+            case 3:
+                winner = getWinnerMove(playerOneMoveThreeType, playerTwoMoveThreeType);
+                //console.log(winner)
+                break;
+            default:
+                return null;
+                //console.log("Null One")
+                break;
+        }
+    }
+    else{
+        return null;
+        //console.log("Null Two")
+    }
     
+    //Verify tie breaker with value
+    if (winner === "Tie"){
+        //console.log(winner)
+        switch(roundValue){
+            case 1:
+                //console.log(playerOneMoveOneValue, playerTwoMoveOneValue)
+                return getTieWinner(playerOneMoveOneValue, playerTwoMoveOneValue);
+                break;
+            case 2:
+                //console.log(playerOneMoveTwoValue, playerTwoMoveTwoValue)
+                return getTieWinner(playerOneMoveTwoValue, playerTwoMoveTwoValue);
+                break;
+            case 3:
+                //console.log(playerOneMoveThreeValue, playerTwoMoveThreeValue)
+                return getTieWinner(playerOneMoveThreeValue, playerTwoMoveThreeValue);
+                break;
+            default:
+                return null;
+                break;
+        }
+    }
+    //Otherwise return a winner
+    else{
+        return winner
+    }
+}
