@@ -19,15 +19,27 @@ let playerTwoMoveThreeValue;
 
 let gameOptions = ["rock", "paper", "scissors"];
 
+//Refactored methods for the game ================================================================
+
+
+const ensureGameOptions = (playerMoves) =>{
+    if (gameOptions.indexOf(playerMoves) > -1){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 const setPlayerMoves = (playerName, playerMove1, playerMove1Val, playerMove2, playerMove2Val, playerMove3, playerMove3Val) => {
     //Check values not undefined
     if ((playerName && playerMove1 && playerMove1Val && playerMove2 && playerMove2Val && playerMove3 && playerMove3Val) 
-    && (gameOptions.indexOf(playerMove1) > -1) 
-    && (gameOptions.indexOf(playerMove2) > -1) 
-    && (gameOptions.indexOf(playerMove3) > -1)){
+    && (ensureGameOptions(playerMove1)) 
+    && (ensureGameOptions(playerMove2)) 
+    && (ensureGameOptions(playerMove3))){
         //console.log("Not null")
         //Check values less than 1, greater than 99, totals greater than 99.
-        if ((playerMove1Val && playerMove2Val && playerMove3Val) < 1 && 
+        if ((playerMove1Val && playerMove2Val && playerMove3Val) > 1 && 
         (playerMove1Val + playerMove2Val + playerMove3Val) <= 99 &&
         (playerMove1Val && playerMove2Val && playerMove3Val) <= 100)
         {
@@ -59,6 +71,7 @@ const setPlayerMoves = (playerName, playerMove1, playerMove1Val, playerMove2, pl
     }
 }
 
+//Refactored methods for use with getRoundWinner() ====================================================
 
 //Find the winning move - in association with getRoundWinner()
 const getWinnerMove = (player1Move, player2Move) =>{
@@ -110,20 +123,6 @@ const getWinnerMove = (player1Move, player2Move) =>{
     }
 }
 
-//Ensures values are not null or undefined
-const ensureValues = () => {
-    if(playerOneMoveOneType && playerOneMoveOneValue && playerOneMoveThreeType && playerOneMoveThreeValue
-        && playerOneMoveTwoType && playerOneMoveTwoValue && playerTwoMoveOneType && playerTwoMoveOneValue
-        && playerTwoMoveThreeType && playerTwoMoveThreeValue && playerTwoMoveTwoType && playerTwoMoveTwoValue) {
-        
-            return true;
-        }
-    else{
-        return false;
-    }
-
-}
-
 //Get a Tie Breaker
 const getTieWinner = (playerMove1Val, playerMove2Val) =>{
     if(playerMove1Val > playerMove2Val){
@@ -137,9 +136,25 @@ const getTieWinner = (playerMove1Val, playerMove2Val) =>{
     }
 }
 
+//Ensures values are not null or undefined
+const ensureValues = () => {
+    if (playerOneMoveOneType && playerOneMoveOneValue && playerOneMoveThreeType && playerOneMoveThreeValue
+        && playerOneMoveTwoType && playerOneMoveTwoValue && playerTwoMoveOneType && playerTwoMoveOneValue
+        && playerTwoMoveThreeType && playerTwoMoveThreeValue && playerTwoMoveTwoType && playerTwoMoveTwoValue) {
+        
+            return true;
+        }
+     else {
+         return false;
+     }
+
+}
+
 const getRoundWinner = (roundValue) =>{
     let winner;
-
+    
+    //Issue with scope of variables
+    //console.log(Boolean(ensureValues));
     //Find non-null values
     if (ensureValues){
 
@@ -194,3 +209,33 @@ const getRoundWinner = (roundValue) =>{
         return winner
     }
 }
+
+const getGameWinner = () =>{
+    let whoWonRound;
+    let playerOneWins = 0;
+    let playerTwoWins = 0;
+
+    for (i = 1; i < 4; i++){
+        whoWonRound = getRoundWinner(i);
+        if (whoWonRound === "Player One")
+        {
+            playerOneWins++;
+            console.log(playerOneWins)
+        }
+        else if (whoWonRound === "Player Two")
+        {
+            playerTwoWins++;
+            console.log(playerTwoWins)
+        }
+    }
+
+        if (playerOneWins > playerTwoWins){
+            return "Player One";
+        }
+        else if (playerOneWins < playerTwoWins){
+            return "Player Two";
+        }
+        else if (playerOneWins === playerTwoWins){
+            return "Tie";
+        }
+    }
