@@ -32,16 +32,17 @@ const ensureGameOptions = (playerMoves) =>{
 }
 
 const setPlayerMoves = (playerName, playerMove1, playerMove1Val, playerMove2, playerMove2Val, playerMove3, playerMove3Val) => {
+    console.log("Move: " + playerOneMoveOneValue)
     //Check values not undefined
     if ((playerName && playerMove1 && playerMove1Val && playerMove2 && playerMove2Val && playerMove3 && playerMove3Val) 
     && (ensureGameOptions(playerMove1)) 
     && (ensureGameOptions(playerMove2)) 
     && (ensureGameOptions(playerMove3))){
-        //console.log("Not null")
+        console.log("Move inside if: " + playerOneMoveOneValue)
         //Check values less than 1, greater than 99, totals greater than 99.
-        if ((playerMove1Val && playerMove2Val && playerMove3Val) > 1 && 
+        if ((playerMove1Val && playerMove2Val && playerMove3Val) > 0 && 
         (playerMove1Val + playerMove2Val + playerMove3Val) <= 99 &&
-        (playerMove1Val && playerMove2Val && playerMove3Val) <= 100)
+        (playerMove1Val && playerMove2Val && playerMove3Val) <= 99)
         {
             //console.log(playerMove1Val + playerMove2Val + playerMove3Val);
             //Check player
@@ -66,7 +67,23 @@ const setPlayerMoves = (playerName, playerMove1, playerMove1Val, playerMove2, pl
             }
         }
         else{
-            //console.log("null")
+            console.log(
+            playerOneMoveOneType,
+            playerOneMoveTwoType,
+            playerOneMoveThreeType,
+            //Values
+            playerOneMoveOneValue,
+            playerOneMoveTwoValue,
+            playerOneMoveThreeValue,
+            
+            //Player 2
+            playerTwoMoveOneType,
+            playerTwoMoveTwoType,
+            playerTwoMoveThreeType,
+            //Values
+            playerTwoMoveOneValue,
+            playerTwoMoveTwoValue,
+            playerTwoMoveThreeValue)
         }
     }
 }
